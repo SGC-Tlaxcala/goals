@@ -1,0 +1,28 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_oficio">Oficio o correo de notificación</label>
+      <div class="col-sm-8">
+        {{ form.oficio }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_acuerdos">Acuerdos de la CLB</label>
+      <div class="col-sm-8">
+        {{ form.acuerdos }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+{% endblock formulario %}

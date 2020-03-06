@@ -1,0 +1,72 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_cronograma">Oficio de la DCE con cronograma</label>
+      <div class="col-sm-8">
+        {{ form.cronograma }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_bgd">Base Geográfica Digital</label>
+      <div class="col-sm-8">
+        {{ form.bgd }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_mza_x_loc">Reporte de cobertura de manzana x localidad</label>
+      <div class="col-sm-8">
+        {{ form.mza_x_loc }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_mza_x_col">Reporte de cobertura de manzana x colonia</label>
+      <div class="col-sm-8">
+        {{ form.mza_x_col }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_errores_geometria">Reportes de error de Geometría</label>
+      <div class="col-sm-8">
+        {{ form.errores_geometria }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_libreracion">Correo de liberación</label>
+      <div class="col-sm-8">
+        {{ form.libreracion }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+{% endblock formulario %}

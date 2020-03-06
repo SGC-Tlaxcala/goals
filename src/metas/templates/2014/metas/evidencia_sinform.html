@@ -1,0 +1,9 @@
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+
+{% block contenido %}
+<h1>Error</h1>
+<p class="alert alert-error">No se ha definido la evidencia para la meta
+    <strong>{{miembro.upper}}-{{clave}}</strong></p>
+{% endblock contenido %}

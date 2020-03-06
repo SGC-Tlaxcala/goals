@@ -1,0 +1,29 @@
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+
+
+{% block upper_header %}
+  {{ form.media }}
+{% endblock upper_header %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-meter-fast"></span> Evidencia para la Meta {{miembro|upper}}-{{clave}}</h1>
+</div>
+{% if form.eval_calidad %}
+{{ form.non_field_errors }}
+<form class="form" action="{{ruta}}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form|as_bootstrap}}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary"><strong>Guardar</strong> evidencia de la meta {{miembro|upper}}-{{clave}}</button>
+    </div>
+  </div>  
+</form>
+{% else %}
+<hr>
+<h4>No se ha definido la evidencia para esta meta {{miembro|upper}}-{{clave}}</h4>
+{% endif %}
+{% endblock contenido %}

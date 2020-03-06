@@ -1,0 +1,83 @@
+{# Template login.html #}
+{% extends "2014/base.html" %}
+
+{% block header_css %}
+  <style>
+    .bg {
+      position: fixed;
+      width: 100%;
+      height: 100%; /*same height as jumbotron */
+      top:0;
+      left:0;
+      z-index: -1;
+    }
+
+    .login {
+      background: url('{{ STATIC_URL }}2014/images/login.jpg') no-repeat center center fixed;
+      position: fixed;
+      filter: blur(5px);      
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+    }
+
+    .parallax {
+      height: 100%;
+      color: black;
+      text-shadow: #444 0 1px 1px;
+      background:transparent;
+    }
+  </style>
+{% endblock %}
+
+{% block footer_js %}
+  <script>
+    var jumboHeight = $('#login').outerHeight();
+    function parallax(){
+        var scrolled = $(window).scrollTop();
+        $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+    }
+
+    $(window).scroll(function(e){
+        parallax();
+    });
+  </script>
+{% endblock %}
+
+{% block container %}
+  <div class="bg login"></div>
+  <div class="container">
+    {% if form.errors %}
+      <div class="alert alert-danger" style="margin-top: 20px;">
+        <p>
+          Tu nombre de usuario o contraseña no coinciden. Inténtalo de nuevo.
+        </p>
+      </div>
+    {% endif %}
+    <div class="row vertical-offset-100 parallax" id="login">
+    	<div class="col-md-4 col-md-offset-4">
+    		<div class="panel panel-default" style="margin-top:30px">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Ingresa al Cuadro de Mando</h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	<form action="/login/" method="post" accept-charset="UTF-8" role="form">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}" />
+              <fieldset>
+			    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="Usuario" id="username" name="username" type="text">
+			    		  </div>
+			    		  <div class="form-group">
+			    			  <input class="form-control" placeholder="Contraseña" name="password" id="password" type="password" value="">
+			    		  </div>
+			    		  <input class="btn btn-lg btn-info btn-block" type="submit" value="Ingresar">
+			    	  </fieldset>
+			      </form>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

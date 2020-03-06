@@ -1,0 +1,192 @@
+{# Template Lista de Avisos #}
+{% extends "2014/base.html" %}
+{% load sgc %}
+
+{% block footer_js %}
+<script>
+function confirmDelete(delUrl) {
+  if (confirm("La evidencia será borrada. Confirmar")) {
+    document.location = delUrl;
+  }
+}
+
+function abrir(pagina) {
+  var strWindowFeatures = "menubar=no,resizable=no,scrollbars=yes,status=no,width=600,height=400";
+  // window.open(pagina, 'window',toolbar='no',width='600px',height='400px',status='no',resize='no');
+  window.open(pagina, 'window', strWindowFeatures).focus();
+}
+</script>
+{% endblock %}
+
+{% block container_before %}
+<div class="bs-header" id="content">
+  <div class="container">
+    <h1><span class="icon-meter-fast"></span> {{title}}</h1>
+    <p>
+      Asegurar que nuestros servicios y productos cumplen con los requisitos establecidos por nuestros
+      clientes y partes interesadas son un objetivo del Sistema de Gestión de la Calidad.
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block contenido %}
+  <div class="row">
+    <div class="col-sm-12">
+      {% if perms.core.change_perfil %}
+      <div class="btn-group">
+        <button type="button" class="btn btn-danger">Administración</button>
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Activar menú</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+        {% if request.user.is_superuser %}
+          <li class="dropdown-header">Usuarios</li>
+          <li><a href="{% url 'metas_usuarios' %}">Editar</a></li>
+          <li><a href="{% url 'usuarios_add' %}">Agregar</a></li>
+          <li class="divider"></li>
+        {% endif %}
+          <li class="dropdown-header">Metas</li>
+          <li><a href="#">Editar</a></li>
+          <li><a href="{% url 'meta_add' %}">Agregar</a></li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div><!-- ./administración -->
+  <hr>
+  <div class="row">
+   
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading"><i class="fa fa-users"></i> Miembros</div>
+        <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+            {% for k, p in persona.items %}
+              {% if p.metas %}
+                <li>
+                  <a href="#miembro{{p.id}}" data-toggle="pill"><i class="fa fa-user"></i> {{ p.first_name }} {{ p.last_name }} ({{ p.puesto }})</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="tab-content">
+        {% for k, p in persona.items %}
+        <div class="tab-pane fade" id="miembro{{p.id}}">
+          <div class="panel panel-info">
+            <div class="panel-heading"><i class="fa fa-cogs"></i> Metas</div>
+            <div class="panel-body">
+              <ul class="nav nav-pills nav-stacked">
+                {% for k, m in p.metas.items %}
+                <li >
+                  <a href="#pipol{{p.id}}-meta{{m.id}}" data-toggle="pill" data-placement="left" title="{{ m.nombre }}"><i class="fa fa-cog fa-spin"></i> {{ k }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="tab-content">
+        {% for k, p in persona.items %}
+          {% for k, m in p.metas.items %}
+            <div class="tab-pane fade" id="pipol{{p.id}}-meta{{m.id}}">
+              <div class="panel panel-success">
+                <div class="panel-heading"><i class="fa fa-check"></i> Evidencias: {{m.nombre}}</div>
+                <div class="panel-body"> 
+                  <div class="well">
+                    {{ m.descripcion|safe }}
+                    <p>
+                      <strong>Recibidas: </strong> {{ m.evidencia.count }} / <strong>Esperadas: </strong>{{ m.ciclos }}<br>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-3 col-sm-12">
+                        <strong>Progreso: </strong> {{ m.progreso|floatformat:"0" }}%
+                      </div>
+                      <div class="col-md-9 col-sm-12">
+                        <div class="progress progress-striped active">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="{{ m.evidencia.count }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ m.progreso }}%;">
+                            {{ m.progreso|floatformat:"0" }}%
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p>
+                      {% if perms.metas.change_metasspe %}<a class="btn btn-primary btn-lg" href="{% url 'meta_editar' id=m.id %}" title="Editar"><i class="fa fa-pencil"></i> Editar Meta</a>{% endif %}
+
+                      {% if request.user|fmeta:k %}<a class="btn btn-danger btn-lg" href="/metas/add/{{ m.id }}/" title="Subir Evidencia"><i class="fa fa-upload"></i> Subir Evidencia</a>{% endif %}
+
+                      {% if m.soporte %}<a class="btn btn-info btn-lg" href="/media/{{ m.soporte }}" target="_blank" title="Soporte para la meta"><i class="fa fa-life-ring"></i> Soporte</a>{% endif %}
+                    </p>                    
+                  </div>
+
+                  <table class="table">
+                    <thead>
+                      <th>#</th>
+                      <th>Fecha</th>
+                      <th>Calidad</th>
+                      <th>Oportunidad</th>
+                      <th>Tareas</th>
+                    </thead>
+                    <tbody>
+                      {% for e in m.evidencia %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ e.fecha}}</td>
+                        <td>{{ e.eval_calidad|stars|safe }}</td>
+                        <td>{{ e.eval_oportunidad|stars|safe }}</td>
+                        <td>
+                          <div class="btn-toolbar" style="margin: 0;" role="toolbar">
+                            <div class="btn-group">
+                              <!-- Edición de Evidencias -->
+                              {{ request.user|edita_evidencia:e|safe }}
+                              <!-- ./Edición de evidencias -->
+
+                              <!-- Borrar Evidencia -->
+                              {{ request.user|borra_evidencia:e|safe }}                              
+                              
+                              <!-- Revisión de Evidencias -->
+                              <a href="{{ e.id }}" title="Revisar la evidencia" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown" type="button">
+                                <i class="fa fa-search"></i> <span class="caret"></span>                                
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                {% for c in e|campos %}
+
+                                  {% if not c.1 %}
+                                    <li>No hay evidencia para el campo <em>{{ c.0 }}</em></li>
+                                  {% else %}
+                                    <li><a target="_blank" href="{{ c.1.url }}" onClick="abrir(this.href);return false">{{c.0}}</a></li>
+                                  {% endif %}
+
+                                {% endfor %}
+                              </ul>
+                              <!-- ./Revisión de Evidencias -->
+                            </div>
+                          </div>  
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>  
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+
+
+  </div>
+
+{% endblock contenido %}

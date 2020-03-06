@@ -1,0 +1,33 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="es-mx">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    
+    <title>{% block html_title %}{{ title }}{% endblock html_title %}</title>
+    <meta name="description" content="Tema para SGC 2015">
+    {% include 'modulos/_header.html' %}
+    {% block header_html %}{% endblock %}
+  </head>
+  <body {% block body_tag %}{% endblock body_tag %}>
+    <header>
+      <nav class="top-nav" role="navigation">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a class="page-title">{% block page-title %}{{ title }}{% endblock page-title %}</a>
+          </div>
+        </div>
+      </nav>
+      {% include 'modulos/_navbar.html' %}
+      {% block index_banner %}{% endblock %}
+    </header>
+    <main>
+      {% block content %}{% endblock content %}
+    </main>
+    {% include 'modulos/_footer.html' %}
+    {% include 'modulos/_js.html' %}
+    {% block javascript %}{% endblock javascript %}
+    {% include 'modulos/_helpdesk.html' %}
+  </body>
+</html>

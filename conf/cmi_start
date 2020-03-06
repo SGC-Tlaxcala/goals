@@ -1,0 +1,34 @@
+#!/bin/bash
+ 
+NAME="goals" # Name of the application
+DJANGODIR=/home/javier/proyectos/goals/src # Django project directory
+SOCKFILE=/home/javier/proyectos/goals/run/cmi.sock # we will communicte using this unix socket
+USER=javier # the user to run as
+GROUP=javier # the group to run as
+NUM_WORKERS=3 # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE=cmi.settings # which settings file should Django use
+DJANGO_WSGI_MODULE=cmi.wsgi # WSGI module name
+ 
+echo "Starting $NAME as `whoami`"
+ 
+# Activate the virtual environment
+cd $DJANGODIR
+source /home/javier/.pyenv/plugins/pyenv-virtualenv/shims/activate goals
+
+# pyenv activate cmi2.7
+
+
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+ 
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec /home/javier/.pyenv/versions/goals/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+   --name $NAME \
+   --workers $NUM_WORKERS \
+   --user=$USER --group=$GROUP \
+   --log-level=debug #\
+   #--bind=unix:$SOCKFILE
+
+

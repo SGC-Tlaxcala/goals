@@ -1,0 +1,64 @@
+{% extends "2014/base.html" %}
+{% load static %}
+{% load sgc %}
+
+{% block footer_js %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/solid-gauge.src.js"></script>
+<script src="http://code.highcharts.com/themes/grid.js"></script>
+
+<script>
+$(function(){$('#abc').highcharts({chart:{type:'area'},title:{text:'Desempeño del Provedor por Día'},subtitle:{text:'Promedio de disponibilidad para Tlaxcala'},xAxis:{type:'datetime',title:{text:'Tramos en el Proceso'}},yAxis:{title:{text:'Días de Disponibilidad'},plotBands:[{from:0,to:10,color:'rgba(128, 0, 0, 0.1)',label:{text:'Límite',style:{color:'#606060'}}},{from:14,color:'rgba(0, 0, 128, 0.1)',label:{text:'Alto',style:{color:'#606060'}}},]},plotOptions:{area:{stacking:'normal',lineColor:'#666666',lineWidth:1,marker:{enabled:false}}},series:[{name:'Tramo  MAC',data:[{%for t in tramites%}[{{t.dia|jsdate}},{{t.t_mac|dias}}]{%if forloop.last%}{%else%},{%endif%}{%endfor%}]},{name:'Tramo CECYRD',data:[{%for t in tramites%}[{{t.dia|jsdate}},{{t.t_cecyrd|dias}}]{%if forloop.last%}{%else%},{%endif%}{%endfor%}]},{name:'Tramo CPC',data:[{%for t in tramites%}[{{t.dia|jsdate}},{{t.t_cpc|dias}}]{%if forloop.last%}{%else%},{%endif%}{%endfor%}]},{name:'Tramo Calidad',data:[{%for t in tramites%}[{{t.dia|jsdate}},{{t.t_calidad|dias}}]{%if forloop.last%}{%else%},{%endif%}{%endfor%}]},{name:'Tramo Tránsito',data:[{%for t in tramites%}[{{t.dia|jsdate}},{{t.t_transito|dias}}]{%if forloop.last%}{%else%},{%endif%}{%endfor%}]}]})});
+</script>
+{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-clock"></span> {{title}}</h1>
+</div>
+
+<div class="col-md-12">
+  <div id="abc" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<div class="col-md-12">
+    <h3>Interpretación <small>Cómo interpretar este gráfico</small></h3>
+
+    <p>
+        En este gráfico los tramos de responsabilidad se suman para obtener un gráfico que tiene la misma forma que el <a href="/disponibilidad/">gráfico original</a> <a href="/disponibilidad/"><i class="icon-link"></i></a>. <br>
+        {%for mac in }
+    </p>
+    <p>
+      Se consideran los siguientes tramos de responsabilidad:
+      <dl>
+        <dt>Tramo de MAC</dt>
+          <dd>Desde el momento que se guarda el trámite hasta que se ingresa en CECYRD.
+            <br>Responsabilidad: <span class="text-info">MAC/VRD/VRL</span></dd>
+        <dt>Tramo CECYRD</dt>
+          <dd>Desde la fecha de ingreso hasta que se solicita para impresión.<br>
+            Responsabilidad: <span class="text-info">CECYRD</span></dd>
+        <dt>Tramo CPC</dt>
+          <dd>Desde la fecha que se solicita para impresión hasta la fecha de entrega a CPC.<br>
+            Responsabilidad: <span class="text-info">Centro de Producción de Credenciales</span></dd>
+        <dt>Tramo Calidad</dt>
+          <dd>Desde  la fecha de entrega a CPC hasta la fecha de disponibilidad de envío CND.<br>
+          Responsabilidad: <span class="text-info">Centro Nacional de Distribución (CND)</span>
+          </dd>
+        <dt>Tramo Tránsito</dt>
+          <dd>
+            Desde la fecha de disponible para envío CND hasta la fecha de disponibilidad en el MAC.<br>
+            Responsabilidad: <span class="text-info">CND, VRD, MAC</span>
+          </dd>
+      </dl>
+    </p>
+
+    <h4>Gráficos relacionados</h4>
+    <ul>
+        <li>Desempeño de las partes interesadas por tramos de responsabilidad <a class="btn btn-info" href="/disponibilidad/">Gráfico</a></li>
+        <li>Desempeño de las partes interesadas por tramos de responsabilidad (procentaje) <a class="btn btn-warning" href="/disponibilidad/alt2/">Gráfico</a></li>
+    </ul>
+
+</div>
+{% endblock contenido %}

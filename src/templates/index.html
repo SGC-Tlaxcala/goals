@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+
+{% block index_banner %}
+<div id="index-banner" class="">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <h1 class="header">Sistema de Gestión de la Calidad</h1>
+      <div class="row">
+        <h5 class="header col s12 light" style="margin-bottom:40px;">
+          más eficaces &bull; más eficientes &bull; más adaptables
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock index_banner %}
+
+{% block content %}
+<div id="politica" class="container">
+  <div class="section">
+    <div class="row">
+      <div class="col s12 center">
+        <h3><i class="mdi-action-verified-user purple-text"></i></h3>
+        <h4 class="center">Política de la Calidad</h4>
+        <p class="flow-text left-align">
+          Quienes trabajamos en el Instituto <span style="border-bottom: 1px dotted #000;">Nacional</span> Electoral en Tlaxcala nos comprometemos a <strong>ofrecer un servicio de calidad en la atención ciudadana, tramitar y entregar la credencial para votar con fotografía, usar eficientemente los recursos, y cumplir la normatividad y metas institucionales</strong>, realizando nuestro trabajo con enfoque de mejora continua y de trabajo en equipo, en estricto apego a los principios rectores de: certeza, legalidad, independencia, imparcialidad, <span style="border-bottom: 1px dotted #000;">máxima publicidad</span> y objetividad; y dando cumplimiento a la Norma NMX-CC-9001-IMNC-2008.<br>
+          <small>
+            <span style="font-variant: small-caps;">
+              <strong>Revisión:</strong> 03 (junio 02, 2014)
+            </span>
+          </small> 
+        </p>
+      </div><!-- ./col s12 -->
+    </div><!-- ./row -->
+  </div><!-- ./section -->
+</div><!-- #/politica ./container -->
+
+<div class="parallax-container valign-wrapper">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <div class="row center">
+        <p class="flow-text bold col s12 purple lighten-5 purple-text">
+          <strong role="strong">El SGC asegura que el servicio que ofrecemos cumple con los requisitos establecidos y nos ayuda a obtener los resultados planificados.</strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="parallax"><img src="{% static 'images/221.jpg' %}" alt="Unsplashed background img 2"></div>
+</div>
+
+<div class="container">
+  <div class="section">
+
+    <div class="row">
+      <div class="col s12 center">
+        <h3><i class="fa fa-compass purple-text"></i></h3>
+        <h4 class="purple-text lighten-4">Propósito</h4>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col l4 m12">
+        <div class="center promo promo-example">
+          <i class="mdi-action-settings"></i>
+          <p class="promo-caption">Control de desempeño</p>
+          <p class="light center">
+            Incrementar el valor público a través de la efectiva aplicación del SGC, incluyendo el seguimiento y medición 
+            del desempeño de los procesos.
+          </p>
+        </div>
+      </div>
+      <div class="col m12 l4">
+        <div class="center promo promo-example">
+          <i class="mdi-social-people"></i>
+          <p class="promo-caption">Control del Servicio</p>
+          <p class="light center">
+            Demostrar nuestra capacidad para proporcionar consistentemente servicio y productos qe cumplan con los requisitos legales y reglamentarios establecidos, además de satisfacer las expectativas de los ciudadanos.
+          </p>
+        </div>
+      </div>
+      <div class="col m12 l4">
+        <div class="center promo promo-example">
+          <i class="mdi-image-flash-on"></i>
+          <p class="promo-caption">Control de riesgos</p>
+          <p class="light center">
+            Evaluar y controlar los eventos que causen incertidumbre en los resultados esperados, buscando determinar los riesgos y las oportunidades que necesitan tratarse.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock content%}

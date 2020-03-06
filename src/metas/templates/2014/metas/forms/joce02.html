@@ -1,0 +1,39 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_oficio">Oficio de indicaciones</label>
+      <div class="col-sm-8">
+        {{ form.oficio }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_envio">Oficio de envío</label>
+      <div class="col-sm-8">
+        {{ form.envio }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_confirmacion">Oficio de confirmación</label>
+      <div class="col-sm-8">
+        {{ form.confirmacion }}
+        <p class="help-block">
+          Seleccione el archivo para esta evidencia, 
+          <em>preferentemente <strong>en formato PDF</strong></em>
+        </p>
+      </div>
+    </div>
+    
+{% endblock formulario %}

@@ -1,0 +1,24 @@
+<div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Cuadro de Mando</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="http://10.29.0.79/"><i class="icon-home-5 icon"></i> Inicio</a></li>
+        <li {% if mnMetas %}class="active"{% endif %}><a href="/metas/"><i class="icon-meter-fast icon"></i> Metas</a></li>
+        <li><a href="http://10.29.0.79/docs/"><i class="icon-archive icon"></i> Documentación</a></li>
+      </ul>
+      {% if user.is_authenticated %}
+        <p class="navbar-text pull-right">Hola {{ user.username }}. <a title="Salir" href="/logout/"><i class="icon-exit"></i></a> </p>
+      {% else %}
+        <p class="navbar-text pull-right"><a href="/login/?next={{request.path}}"><i class="icon-enter"></i> Ingresa al CMI</a></p>
+      {% endif %}
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>

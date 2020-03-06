@@ -1,0 +1,26 @@
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+
+{% block upper_header %}
+  {{ form.media }}
+{% endblock upper_header %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-meter-fast"></span> Revisión de la evidencia {{hijo|upper}} ID: {{id}}</h1>
+</div> 
+{% if form.eval_calidad %}
+{{ form.non_field_errors }}
+<form class="form" action="{% url 'editar_evidencia' hijo id %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form|as_bootstrap}}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Guardar y <strong>Capturar</strong> datos del envio</button>
+    </div>
+  </div>  
+</form>
+{% else %}
+<h4>No se ha definido la evidencia para esta meta</h4>
+{% endif %}
+{% endblock contenido %}

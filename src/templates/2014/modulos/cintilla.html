@@ -1,0 +1,30 @@
+<div class="bdb-half-menu">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="info-contact-header">
+          <ul>
+            <li>
+              <i class="icon-bell" style="font-size: inherit;"></i> Avisos
+            </li>
+          </ul>
+        </div>
+      <nav class="social">
+        <ul>
+          <li style="width: auto"><a href="#" style="width: auto" class="bottomtip" original-title="Panel de Usuario"><i style="font-size: inherit;" class="icon-user"></i>
+
+         {% if user.is_authenticated %}
+              {% if user.first_name %}
+                Hola {{ user.first_name }}
+              {% else %}
+                {{user}}
+              {% endif %}
+            {% else %}
+              Entrar {{ user }}
+            {% endif %}
+
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

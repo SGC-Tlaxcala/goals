@@ -1,0 +1,107 @@
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+{% load sgc_extras %}
+
+
+{% block contextual %}
+  <a class="btn btn-large btn-danger" type="button" href="{% url "metas.views.evidencia_seleccionar" %}">
+    Agregar una Evidencia</a>
+  {% endblock %}
+
+{% block hook_footer %}
+<script type="text/javascript">
+$('#myModal').on('hidden', function () {
+  $(this).removeData('modal');
+});
+</script>
+{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-meter-fast"></span> Revisión de la meta {{evidencia.meta}}</h1>
+</div>
+
+<h3>{{evidencia.meta}}<small>{{evidencia.meta.nom_corto}}{% if evidencia.valedor = request.user %} <span class="alert alert-error"><span class="icon-pencil-2"></span> <a href="{% url 'editar_evidencia' hijo id %}">Editar</a></span>{% endif %}</small></h3>
+<p>{{evidencia.meta.descripcion|safe}}</p>
+
+<hr>
+<dl class="dl-horizontal">
+  <dt>Responsable</dt>
+    <dd>{{evidencia.miembro.nombre}}</dd>
+  <dt>Sitio</dt>
+    <dd>{{evidencia.miembro.get_sitio}}</dd>
+  <dt>Puesto</dt>
+    <dd>{{evidencia.miembro.puesto}}</dd>
+  <dt>Fecha</dt>
+    <dd>{{evidencia.fecha}}</dd>
+  <dt>Oportunidad</dt>
+    <dd>{% if evidencia.eval_oportunidad = 3 %}
+      <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star-3'></i>
+    {% elif evidencia.eval_oportunidad = 2 %}
+      <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star'></i>
+    {% else %}
+      <i class='icon-star-3'></i><i class='icon-star'></i><i class='icon-star'></i>
+    {% endif %}</dd>
+  <dt>Calidad</dt>
+    <dd>{% if evidencia.eval_calidad = 3 %}
+      <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star-3'></i>
+    {% elif evidencia.eval_calidad = 2 %}
+      <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star'></i>
+    {% else %}
+      <i class='icon-star-3'></i><i class='icon-star'></i><i class='icon-star'></i>
+    {% endif %}</dd>
+</dl>
+
+<div class="border"></div>
+<h4>Evidencias Documentales</h4>
+<table class="table table-hover table-bordered table-compact">
+  <thead>
+    <thead>
+      <tr>
+        <th>Evidencia</th>
+        <td>Revisión</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in campos %}
+      <tr>
+        <td>{{c}}</td>
+        <td>
+          <a href="{% url 'evidencia_modal' hijo id c %}" data-target="#myModal" data-toggle="modal">
+            <i class="icon-magnifying-glass"></i> Revisar
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </thead>
+</table>
+
+<p>
+  <small>
+    <strong>Verificado por: </strong>{{evidencia.valedor}}
+    {% if request.user == evidencia.valedor or request.user.is_superuser  %}
+       &bull;  <a title="EDITAR la evidencia" href="{% url 'editar_evidencia' evidencia.content_type.model evidencia.id %}">
+        <i class="icon-pen-alt-stroke"></i>
+      </a>
+    {% endif %}
+  </small>
+</p>
+
+<p>
+    <a class="btn btn-primary btn-large" href="{% url 'revision' evidencia.content_type.model %}"><i class="icon-back"></i> Regresar a la Meta</a>
+</p>
+
+    <div style="width:960px; margin-left: -480px;" class="modal fade hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Revisión de Evidencias</h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+      </div>
+    </div>
+{% endblock contenido %}

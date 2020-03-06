@@ -1,0 +1,168 @@
+{% extends "2014/base.html" %}
+{% load static %}
+{% load sgc %}
+
+
+{% block footer_js %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/solid-gauge.src.js"></script>
+
+<script>
+$(function () {
+    $('#cable').highcharts({
+      chart: { type:'column'},
+      title: { text: 'Desempeño del Provedor por Mes' },
+      subtitle: { text: 'Para MAC con red cableada (290121, 290321)' },
+      xAxis: {
+        categories: [ {% for mes, datos in pivot.items %}'{{datos.cat}}'{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ], 
+         title: { text: 'Mes' }
+        },
+       yAxis: {
+          min: 0, 
+          title: { text: 'Cantidad de Credenciales' }, 
+          stackLabels: {
+            enabled: true,
+            style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            }
+          }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.2f}%)<br/>',
+            shared: true
+        },  
+        plotOptions: { column: { stacking: 'percentage' } }, 
+        series: [{ 
+            name: 'En tiempo',
+            data: [{% for mes, datos in pivot.items %}{{datos.d14}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+          }, {
+            name: 'Fuera de tiempo',
+            data: [{% for mes, datos in pivot.items %}{{datos.d15}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+          }, {
+            name: 'Trámites sin FCPV',
+            data: [{% for mes, datos in pivot.items %}{{datos.nulo}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+        }]
+    });
+
+
+  $('#cell').highcharts ({
+    chart: { 
+        type: 'column'
+      , renderTo: 'container'
+      , width: $('#cable').width()
+    },
+    title: { text: 'Desempeño del Proveedor por Mes' },
+    subtitle: { text: 'Para MAC con red celular' },
+    xAxis: {
+      categories: [ {% for mes, datos in pivot_cell.items %}'{{datos.cat}}'{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ],
+      title: { text: 'Mes' } 
+    },
+    yAxis: {
+      min: 0,
+      title: { text: 'Cantidad de Credenciales' },
+      stackLabels: {
+        enabled: true,
+        style: {
+          fontWeight: 'bold',
+          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+        }
+      }
+    },
+    tooltip: {
+      pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.2f}%)<br/>',
+      shared: true
+    },
+    plotOptions: { column: { stacking: 'percentage' } }, 
+    series: [{ 
+      name: 'En tiempo',
+        data: [{% for mes, datos in pivot_cell.items %}{{datos.d18}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+      }, {
+      name: 'Fuera de tiempo',
+        data: [{% for mes, datos in pivot_cell.items %}{{datos.d19}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+      }, {
+      name: 'Trámites sin FCPV',
+        data: [{% for mes, datos in pivot_cell.items %}{{datos.nulo}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %} ]
+      }]
+  });
+
+});
+    
+</script>
+{% endblock footer_js %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-clock"></span> Desempeño del Proveedor  - Inicio</h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#tcable" data-toggle="tab">Red Cableada</a></li>
+  <li><a href="#tcell" data-toggle="tab">Red Celular</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="tcable">
+    <div class="row-fluid">
+      <h2>MAC con red cableada <small>290121, 290321</small></h2>
+      <div id="cable" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+      <h3>Estadístico de desempeño</h3>
+      <table class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>Mes</th>
+            <th>Trámites</th>
+            <th>FCPV en tiempo</th>
+            <th>FCPV fuera tiempo</th>
+            <th>Trámites sin FCPV</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mes, datos in pivot.items %}
+          <tr>
+            <td>{{datos.cat}}</td>
+            <td>{{datos.tramites}}</td>
+            <td>{{datos.d14}}</td>
+            <td>{{datos.d15}}</td>
+            <td>{{datos.nulo}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>       
+    </div>
+  </div>
+
+  <div class="tab-pane fade out" id="tcell">
+    <div class="row-fluid">
+      <h2>MAC con red celular</h2>
+      <div id="cell" style="min-width: 400px; max-weight:940px; height: 400px; margin: 0 auto"></div>
+      <h3>Estadístico de desempeño</h3>
+      <table class="table table-hover table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>Mes</th>
+            <th>Trámites</th>
+            <th>FCPV en tiempo</th>
+            <th>FCPV fuera tiempo</th>
+            <th>Trámites sin FCPV</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mes, datos in pivot_cell.items %}
+          <tr>
+            <td>{{datos.cat}}</td>
+            <td>{{datos.tramites}}</td>
+            <td>{{datos.d18}}</td>
+            <td>{{datos.d19}}</td>
+            <td>{{datos.nulo}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table> 
+    </div>
+  </div>
+</div>   
+
+{% endblock contenido %}

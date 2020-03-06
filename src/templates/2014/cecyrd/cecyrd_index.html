@@ -1,0 +1,116 @@
+{% extends "2014/base.html" %}
+{% load static %}
+{% load sgc %}
+
+{% block footer_js %}
+<script src="{{STATIC_URL}}highcharts/highcharts.js"></script>
+<script src="{{STATIC_URL}}highcharts/themes/grid.js"></script>
+
+<script>
+$(function () {
+    $('#abc').highcharts({
+        title: {
+            text: 'Desempeño del Provedor por Día'
+        },
+        subtitle: {
+            text: 'Promedio de disponibilidad para Tlaxcala'
+        },
+        xAxis: {
+            type: 'datetime',
+            maxZoom: 14 * 24 * 3600000, // fourteen days
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Días de Disponibilidad'
+            },
+            plotBands: [
+              { // Bajo
+                from: 0,
+                to: 14,
+                color: 'rgba(128, 0, 0, 0.1)',
+                label: {
+                  text: 'Límite',
+                  style: {
+                    color: '#606060'
+                  }
+                }
+              },
+              { // Alto
+                from: 18, //to: 10,
+                color: 'rgba(0, 0, 128, 0.1)',
+                label: { text: 'Alto',
+                         style: {color: '#606060'} } },
+            ], // plotBands     
+        },
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                lineWidth: 1,
+                marker: {
+                    enabled: false
+                },
+                shadow: false,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'Días',
+            //pointInterval: 24 * 3600 * 1000,
+            //pointStart: Date.UTC(2012, 7, 1),
+            data: [
+               {% for t in tramites %}[{{t.dia|jsdate}}, {{t.disp|dias}}]{% if forloop.last %}{% else %}, {% endif %}
+              {% endfor%}
+            ]
+        }]
+    });
+    });
+    
+</script>
+{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-clock"></span> {{title}}</h1>
+</div>
+
+<div class="row">
+  <div id="abc" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<div class="row">
+    <h3>Interpretación <small>Cómo interpretar este gráfico</small></h3>
+
+    <p>
+        Este gráfico muestra cuál fue el tiempo de generación de las credenciales desde <strong>que se guarda el trámite</strong> hasta <strong>que la credencial se marca como disponible</strong>. Se obtiene el promedio por día sumando el tiempo de generación de todos los trámites de un día y se divide entre el número de credenciales de ese día específico.
+    </p>
+
+    <h4>Gráficos relacionados</h4>
+    <ul>
+        <li>Desempeño de las partes interesadas por tramos de responsabilidad <a class="btn btn-info" href="/disponibilidad/alt/">Gráfico</a></li>
+        <li>Desempeño de las partes interesadas por tramos de responsabilidad (procentaje) <a class="btn btn-warning" href="/disponibilidad/alt2/">Gráfico</a></li>
+    </ul>
+
+</div>
+{% endblock contenido %}

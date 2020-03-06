@@ -1,0 +1,155 @@
+{# Template Lista de Avisos #}
+{% extends "2014/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block container_before %}
+  <div class="row">
+    <div class="container">
+      <div class="page-header">
+        <h1><i class="icon-meter-fast""></i> {{title}} <small>{{ form.instance.last_name }}, {{ form.instance.first_name }}</small></h1>
+      </div>
+     </div>
+  </div>
+{% endblock %}
+
+{% block contenido %}
+
+ <div class="row">
+  <div class="col-md-12">
+    <form class="form-horizontal" role="form" action="{% url "usuarios_edit" pipol=form.instance.id %}" method="post">
+      {% csrf_token %}
+      {{ form.errors }}
+      
+      <!-- username -->
+      <div class="form-group {% if form.username.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_username">
+          {% if form.username.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Nombre de Usuario:
+        </label>
+        <div class="col-sm-3">
+          {{ form.username }}
+        </div>
+        {% if form.username.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.username.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./username -->
+
+      <!-- first_name -->
+      <div class="form-group {% if form.first_name.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_first_name">
+          {% if form.first_name.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Nombre:
+        </label>
+        <div class="col-sm-3">
+          {{ form.first_name }}
+        </div>
+        {% if form.first_name.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.first_name.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./first_name -->
+
+      <!-- last_name -->
+      <div class="form-group {% if form.last_name.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_last_name">
+          {% if form.last_name.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Apellidos:
+        </label>
+        <div class="col-sm-3">
+          {{ form.last_name }}
+        </div>
+        {% if form.last_name.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.last_name.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./last_name -->
+
+      <!-- email -->
+      <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_email">
+          {% if form.email.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Correo Elecrónico:
+        </label>
+        <div class="col-sm-3">
+          {{ form.email }}
+        </div>
+        {% if form.email.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.email.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./email -->
+
+      <!-- sitio -->
+      <div class="form-group {% if form.sitio.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_sitio">
+          {% if form.sitio.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Sitio:
+        </label>
+        <div class="col-sm-3">
+          {{ form.sitio }}
+        </div>
+        {% if form.sitio.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.sitio.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./sitio -->
+
+      <!-- activo -->
+      <div class="checkbox">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-9" for="id_is_active">
+          {{ form.is_active }}
+          <strong>Activo para el control de metas</strong>
+        </label>
+      </div>
+      <!-- ./activo -->
+
+      <!-- puesto -->
+      <div class="form-group {% if form.puesto.errors %}has-error{% endif %}">
+        <label class="text-right col-sm-3 control-label"  for="id_puesto">
+          {% if form.puesto.errors %}
+            <span class="label label-danger">Error</span>
+          {% endif %}
+          Puesto:
+        </label>
+        <div class="col-sm-3">
+          {{ form.puesto }}
+        </div>
+        {% if form.puesto.errors %}
+          <div class="col-sm-6">
+            <span class="help-block">{{ form.puesto.errors }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <!-- ./puesto -->
+
+      <div class="control-group col-md-12">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Guardar <strong>Meta del SPE</strong></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

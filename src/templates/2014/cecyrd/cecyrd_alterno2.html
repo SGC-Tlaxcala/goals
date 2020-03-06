@@ -1,0 +1,103 @@
+{% extends "2014/base.html" %}
+{% load static %}
+{% load sgc %}
+
+{% block footer_js %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/solid-gauge.src.js"></script>
+<script src="http://code.highcharts.com/themes/grid.js"></script>
+
+<script>
+$(function () {
+        $('#abc').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'Desempeño del Provedor por Día'
+            },
+            subtitle: {
+                text: 'Promedio de disponibilidad para Tlaxcala'
+            },
+            xAxis: {
+                type: 'datetime',
+               
+                title: {
+                    text: 'Tramos en el Proceso'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Días de Disponibilidad'
+                },    
+            },
+
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.2f} días)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'percent',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+    
+            series: [
+              {
+                name: 'Tramo  MAC',
+                data: [{% for t in tramites %}[{{t.dia|jsdate}}, {{t.t_mac|dias}}]{% if forloop.last %}{% else %}, {% endif %}{% endfor%}]
+              }, {
+                name: 'Tramo CECYRD',
+                data: [{% for t in tramites %}[{{t.dia|jsdate}}, {{t.t_cecyrd|dias}}]{% if forloop.last %}{% else %}, {% endif %}{% endfor%}]
+              }, {
+                name: 'Tramo CPC',
+                pointStart: Date.UTC(2012, 7, 1),
+                pointInterval: 24 * 3600 * 1000,
+                data: [{% for t in tramites %}[{{t.dia|jsdate}}, {{t.t_cpc|dias}}]{% if forloop.last %}{% else %}, {% endif %}{% endfor%}]
+              }, {
+                name: 'Tramo Calidad',
+                data: [{% for t in tramites %}[{{t.dia|jsdate}}, {{t.t_calidad|dias}}]{% if forloop.last %}{% else %}, {% endif %}{% endfor%}]
+              }, {
+                name: 'Tramo Tránsito',
+                data: [{% for t in tramites %}[{{t.dia|jsdate}}, {{t.t_transito|dias}}]{% if forloop.last %}{% else %}, {% endif %}{% endfor%}]
+              }                
+            ]
+        });
+    });
+    
+</script>
+{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-clock"></span> {{title}}</h1>
+</div>
+
+<div class="row-fluid">
+  <div id="abc" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<div class="row-fluid">
+    <h3>Claves <small>Cómo interpretar este gráfico</small></h3>
+    <p>
+        Esta gráfica muestra el impacto que cada tramo tiene en el tiempo total de distribución de las credenciales. El tiempo total de generación y distribución de los formatos de credencial se suma y se obtiene el porcentaje dividiendo el tiempo de cada tramo entre el total.
+    </p>
+    <p>
+        Los tramos considerados, se pueden revisar en el gráfico de <a href="http://localhost:8000/disponibilidad/alt/">disponibilidad por tramos</a> y el promedio diario de distribucuón en la <a href="http://localhost:8000/disponibilidad/">gráfica de la portada</a> del indicador.
+    </p>
+
+    <h4>Gráficos relacionados</h4>
+    <ul>
+        <li>Tiempo de disponibilidad (promedio por día) <a class="btn btn-warning" href="/disponibilidad/">Gráfico</a></li>        
+        <li>Desempeño de las partes interesadas por tramos de responsabilidad <a class="btn btn-info" href="/disponibilidad/alt/">Gráfico</a></li>
+    </ul>    
+</div>
+
+{% endblock contenido %}

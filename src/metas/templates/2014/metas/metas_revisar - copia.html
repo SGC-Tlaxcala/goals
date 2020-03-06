@@ -1,0 +1,56 @@
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+{% load sgc_extras %}
+
+
+{% block contenido %}
+
+<h1>Revisión de la Meta {{evid.0.meta}}</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Miembro</th>
+      <th>Fecha</th>
+      <th>Calidad</th>
+      <th>Oportunidad</th>
+      <th>Edición</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in evid %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{e.miembro}}</td>
+      <td>{{e.fecha|date:'d/m/Y'}} [<small>{{e.fecha|remesa}}</small>]</td>
+      <td>
+        {% if e.eval_calidad = 3 %}
+          <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star-3'></i>
+        {% elif e.eval_calidad = 2 %}
+          <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star'></i>
+        {% else %}
+          <i class='icon-star-3'></i><i class='icon-star'></i><i class='icon-star'></i>
+        {% endif %}
+      </td>
+      <td>
+        {% if e.eval_oportunidad = 3 %}
+          <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star-3'></i>
+        {% elif e.eval_oportunidad = 2 %}
+          <i class='icon-star-3'></i><i class='icon-star-3'></i><i class='icon-star'></i>
+        {% else %}
+          <i class='icon-star-3'></i><i class='icon-star'></i><i class='icon-star'></i>
+        {% endif %}        
+      </td>
+      <td>
+        {# {% url 'evidencia_revisar' hijo=e.content_type.model id=e.id %} #}
+        <a title="REVISAR la evidencia" href="/metas/evidencias/revisar/{{e.content_type.model}}/{{e.id}}/"><i class="icon-magnifying-glass"></i></a>
+        {% if request.user == e.valedor or request.user.is_superuser  %}
+        <a title="EDITAR la evidencia" href="/metas/evidencias/editar/{{e.content_type.model}}/{{e.id}}/"><i class="icon-pen-alt-stroke"></i></a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock contenido %}

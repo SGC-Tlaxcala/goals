@@ -1,0 +1,236 @@
+{% extends "2014/base.html" %}
+{% load humanize %}
+
+{% block footer_js %}
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/highcharts-more.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script src="http://code.highcharts.com/modules/solid-gauge.src.js"></script>
+  <script>  
+    $(function(){$('#prod_graph').highcharts({credits:{enabled:false},chart:{type:'gauge',plotBackgroundColor:null,plotBackgroundImage:null,plotBorderWidth:0,plotShadow:false},title:{text:'Productividad CAI 2014-2015'},pane:{startAngle:-150,endAngle:150,background:[{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,'#FFF'],[1,'#333']]},borderWidth:0,outerRadius:'109%'},{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,'#333'],[1,'#FFF']]},borderWidth:1,outerRadius:'107%'},{},{backgroundColor:'#DDD',borderWidth:0,outerRadius:'105%',innerRadius:'103%'}]},yAxis:{min:0,max:100,minorTickInterval:'auto',minorTickWidth:1,minorTickLength:10,minorTickPosition:'inside',minorTickColor:'#666',tickPixelInterval:30,tickWidth:2,tickPosition:'inside',tickLength:10,tickColor:'#666',labels:{step:2,rotation:'auto'},title:{text:'prod x día x est'},plotBands:[{from:0,to:27,color:'#DF5353'},{from:27,to:45,color:'#DDDF0D'},{from:45,to:100,color:'#55BF3B'}]},series:[{name:'Prod',data:[{{cifras.prod_dia_est__avg}}],tooltip:{valueSuffix:' aten x día x est'}}]})});
+  
+    $(function(){var e={chart:{type:"solidgauge"},title:null,pane:{center:["50%","85%"],size:"100%",startAngle:-90,endAngle:90,background:{backgroundColor:Highcharts.theme&&Highcharts.theme.background2||"#EEE",innerRadius:"60%",outerRadius:"100%",shape:"arc"}},tooltip:{enabled:false},yAxis:{stops:[[.919,"#DF5353"],[.92,"#55BF3B"]],lineWidth:0,minorTickInterval:null,tickPixelInterval:400,tickWidth:0,title:{y:-70},labels:{y:16}},plotOptions:{solidgauge:{dataLabels:{y:-30,borderWidth:0,useHTML:true}}}};$("#aprobacion").highcharts(Highcharts.merge(e,{yAxis:{min:0,max:100,title:{text:"Aprobación"}},credits:{enabled:false},series:[{name:"Aprobación",data:[{{aprobacion.0.promedio|floatformat:2}}],dataLabels:{format:'<div style="text-align:center"><span style="font-size:25px;color:'+(Highcharts.theme&&Highcharts.theme.contrastTextColor||"black")+'">{y}</span><br/>'+'<span style="font-size:12px;color:silver">promedio</span></div>'},tooltip:{valueSuffix:" Promedio"}}]}))})
+
+    $(function(){$("#tramites").highcharts({credits:{enabled:false},chart:{type:"bar"},title:{text:"Trámites por Campaña"},subtitle:{text: 'CAI 2014-2015'},xAxis:{categories:["Distrito 1","Distrito 2","Distrito 3"],title:{text:null}},yAxis:{min:0,title:{text:"Trámites",align:"high"},labels:{overflow:"justify"}},tooltip:{valueSuffix:" trámites"},plotOptions:{bar:{dataLabels:{enabled:true}}},legend:{layout:"vertical",align:"right",verticalAlign:"top",x:-10,y:180,floating:true,borderWidth:1,backgroundColor:Highcharts.theme&&Highcharts.theme.legendBackgroundColor||"#FFFFFF",shadow:true},credits:{enabled:false},series:[{name:"Meta",data:[{{tram.1.meta}},{{tram.2.meta}},{{tram.3.meta}}]},{name:"Actual",data:[{{tram.1.actual}}, {{tram.2.actual}}, {{tram.3.actual}}]}]})})
+
+    {% for d in distro %}
+      $(function(){$("#distrito{{d.lote__distrito}}").highcharts({credits:{enabled:false},chart:{type:"gauge",plotBackgroundColor:null,plotBackgroundImage:null,plotBorderWidth:0,plotShadow:false},title:{text:"Distrito 0{{d.lote__distrito}}"},pane:{startAngle:-150,endAngle:150,background:[{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#FFF"],[1,"#333"]]},borderWidth:0,outerRadius:"109%"},{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#333"],[1,"#FFF"]]},borderWidth:1,outerRadius:"107%"},{},{backgroundColor:"#DDD",borderWidth:0,outerRadius:"105%",innerRadius:"103%"}]},yAxis:{min:0,max:100,minorTickInterval:"auto",minorTickWidth:1,minorTickLength:10,minorTickPosition:"inside",minorTickColor:"#666",tickPixelInterval:30,tickWidth:2,tickPosition:"inside",tickLength:10,tickColor:"#666",labels:{step:2,rotation:"auto"},title:{text:"Horas"},plotBands:[{from:0,to:36,color:"#55BF3B"},{from:36,to:72,color:"#DDDF0D"},{from:72,to:100,color:"#DF5353"}]},series:[{name:"Tránsito",data:[{{d.horas|floatformat:0}}],tooltip:{valueSuffix:" hrs"}}]})})
+    {% endfor %}
+
+    // $(function(){$('#rechazos').highcharts({chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:'Detección de Rechazos'},tooltip:{pointFormat:'{series.name}: <b>{point.y} dococumento(s)</b>'},plotOptions:{pie:{allowPointSelect:true,cursor:'pointer',dataLabels:{enabled:true,format:'<b>{point.name}</b>: {point.percentage:.1f} %',style:{color:(Highcharts.theme&&Highcharts.theme.contrastTextColor)||'black'}}}},series:[{type:'pie',name:'Detección',data:[['VRD',{{rechazos.vrd}}],['JL',{{rechazos.jl}}],{name:'CECyRD',y:{{rechazos.cecyrd}},sliced:true,selected:true}]}]})});
+
+    $(function(){$('#calidad').highcharts({credits:{enabled:false},chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:'Atributo de Calidad'},tooltip:{pointFormat:'{series.name}: <b>{point.y}</b>'},plotOptions:{pie:{allowPointSelect:true,cursor:'pointer',dataLabels:{enabled:true,format:'<b>{point.name}</b>: {point.percentage:.1f} %',style:{color:(Highcharts.theme&&Highcharts.theme.contrastTextColor)||'black'}}}},series:[{type:'pie',name:'Cantidad',data:[{name:'Alto',y:{{calidad.alto}},sliced:true,selected:true},['Medio',{{calidad.medio}}],['Bajo',{{calidad.bajo}}]]}]})});
+
+    $(function(){$('#oportunidad').highcharts({credits:{enabled:false},chart:{plotBackgroundColor:null,plotBorderWidth:null,plotShadow:false},title:{text:'Atributo de oportunidad'},tooltip:{pointFormat:'{series.name}: <b>{point.y}</b>'},plotOptions:{pie:{allowPointSelect:true,cursor:'pointer',dataLabels:{enabled:true,format:'<b>{point.name}</b>: {point.percentage:.1f} %',style:{color:(Highcharts.theme&&Highcharts.theme.contrastTextColor)||'black'}}}},series:[{type:'pie',name:'Cantidad',data:[{name:'Alto',y:{{oportunidad.alto}},sliced:true,selected:true},['Medio',{{oportunidad.medio}}],['Bajo',{{oportunidad.bajo}}]]}]})});
+
+
+    $(function(){$('#rechazos').highcharts({chart:{type:'column'},title:{text:'Documentos detectados con rechazos y recuperados'},xAxis:{categories:['Documentos']},yAxis:{title:{text:'Cantidad'}},credits:{enabled:false},series:[{name:'Notificados',data:[{{recupera.detectados}}]},{name:'Recuperados',data:[{{recupera.recuperados}}]}]})})
+  </script>
+{% endblock %}
+
+{% block header_css %}
+  <style>
+    .bg {
+      position: fixed;
+      width: 100%;
+      height: 350px; /*same height as jumbotron */
+      top:0;
+      left:0;
+      z-index: -1;
+    }
+
+    .sgc {
+      background: url('{{ STATIC_URL }}2014/images/parallax01.png') no-repeat center center;
+    }
+
+    .jumbotron {
+      height: 350px;
+      color: white;
+      text-shadow: #444 0 1px 1px;
+      background:transparent;
+    }
+  </style>
+{% endblock %}
+
+
+{% block container_before %}
+  <div class="bs-header" id="content">
+    <div class="container">
+      <h1 style='margin-right:0 !important;'>Sistema de Gestión de la Calidad</h1>
+      <p class="lead">
+        El SGC asegura que el servicio que ofrecemos cumple con los requisitos establecidos y
+        nos ayuda a obtener los resultados planificados.
+      </p>
+      <div class="btn-group">
+        <a href="{% url 'metas' %}" type="button" class="btn btn-default"><i class="icon-meter-fast icon"></i> Metas</a></a>
+        <a href="/docs/" type="button" class="btn btn-default"><i class="icon-archive icon"></i> Documentación</a></a>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-layers icon"></i> Indicadores
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li {% if mnProductividad %}class="active"{% endif %}><a href="/productividad/"><i class="icon-stats-up"></i> Productividad</a></li>
+            <li><a href="/productividad/tramites/"><i class="icon-document-alt-stroke"></i> Trámites</a></li>
+            <li><a href="/productividad/entregas/"><i class="icon-card"></i> Entregas</a></li>
+            <li><a href="/aprobacion/"><i class="icon-chat-alt-stroke"></i> Aprobación</a></li>
+            <li><a href="/rechazos/"><i class="icon-cancel-3"></i> Rechazos</a></li>
+            <li><a href="/presupuesto/"><i class="icon-calculate"></i> Presupuesto</a></li>
+            <li><a href="/distribucion/"><i class="icon-rocket" style="font-size: inherit;"></i> Distribución</a></li>
+            <li {% if mnCecyrd %}class="active"{% endif %}><a href="{% url 'cecyrd_index' %}"><i class="icon-clock"></i> Disponibilidad del FCPV</a></li>
+            <li><a href="{% url 'quejas' %}"><i class="fa fa-gavel"></i> Quejas</a></li>
+          </ul>
+        </div>
+        <a href="/capife/" type="button" class="btn btn-default"><i class="icon-users"></i> CAPIFE</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="well well-lg">
+      <h2>Política de Calidad</h2>
+      <p>
+        Quienes trabajamos en el Instituto Nacional Electoral en Tlaxcala nos comprometemos a <span style="border-bottom: 1px dotted #000;">garantizar el ejercicio de los derechos político-electorales</span> al <strong>ofrecer un servicio de calidad en la atención ciudadana, tramitar y entregar la credencial para votar con fotografía, usar eficientemente los recursos, y cumplir la normatividad y metas institucionales</strong>, realizando <span style="border-bottom: 1px dotted #000;">nuestras labores</span> con enfoque de mejora continua y de trabajo en equipo, en estricto apego a los principios rectores de: certeza, legalidad, independencia, imparcialidad, máxima publicidad y objetividad; y dando cumplimiento a la Norma <span style="border-bottom: 1px dotted #000;">ISO 9001</span>.<br>
+        <small>
+          <span style="font-variant: small-caps;">
+            <strong>Revisión:</strong> 
+              04 (marzo 07, 2016)
+          </span>
+        </small> 
+      </p>
+    </div>
+  </div>  
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Objetivos de la Calidad</h3>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail"><!-- objetivo 2 -->
+      <div id="prod_graph" style="width: 100%; min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+      <div class="caption">
+        <h3>Productividad</h3>
+      </div>
+    </div><!-- objetivo 2 -->
+  </div><!-- ./col-md-4 -->
+
+  <div class="col-sm-6 col-md-4"><!-- objetivo 3 -->
+    <div class="thumbnail">
+      <div id="rechazos" style="width: 100%; min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+      <div class="caption">
+        <h3>Rechazos</h3>
+      </div>
+    </div> 
+  </div><!-- objetivo 3 --> 
+
+  <div class="col-sm-6 col-md-4"><!-- objetivo 4 -->
+    <div class="thumbnail">
+      <div id="aprobacion" style="width: 100%; max-width: 250px; height: 250px; margin: 0 auto"></div>      
+      <div class="caption">
+        <h3>Aprobación</h3>
+      </div>
+    </div> 
+  </div><!-- objetivo 4 --> 
+</div><!-- ./row -->
+<div class="row">
+  <div class="col-sm-6 col-md-4"><!-- Objetivo 5 -->
+    <div class="thumbnail">
+      <div id="metas-spe" class="carousel slide" data-ride="carousel">      
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div id="calidad" style="width: 100%; min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="item">
+            <div id="oportunidad" style="width: 100%; min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>          
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#metas-spe" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#metas-spe" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>        
+      </div><!-- ./metas-spe -->
+      <div class="caption">
+        <h3>Metas</h3>
+      </div>
+    </div>
+  </div><!-- objetivo 6 -->
+  <div class="col-sm-6 col-md-4"><!-- Objetivo 6 -->
+    <div class="thumbnail">
+      <div id="tramites" style="width: 100%; max-width: 800px; height: 300px; margin: 0 auto"></div>
+      <div class="caption">
+        <h3>Trámites</h3>
+      </div>
+    </div>
+  </div><!-- objetivo 6 -->
+  <div class="col-sm-6 col-md-4"><!-- Objetivo 7 -->
+    <div class="thumbnail">
+      <div id="distribucion-show" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div id="distrito1" style="width: 100%; min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="item">
+            <div id="distrito2" style="width: 100%; min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+          <div class="item">
+            <div id="distrito3" style="width: 100%; min-width: 200px; max-width: 400px; height: 300px; margin: 0 auto"></div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#distribucion-show" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#distribucion-show" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>        
+      </div>
+      <div class="caption">
+        <h3>Distribución</h3>
+      </div>
+    </div>
+  </div><!-- objetivo 7 -->    
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Conoce el nuevo Cuadro de Mando</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Parece que es la primera vez que visitas el nuevo Cuadro de Mando Integral. Estos son algunos de los cambios
+          que se han hecho.
+        </p>
+        <ul>
+          <li>Nuevo tema. Más simple y rápido.</li>
+          <li>Ahora usamos Django versión 1.6</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button id="cerrar_tour" type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        <br>
+        <div class="checkbox-inline">
+          <label>
+            <input id="repetir_tour" type="checkbox" value="">
+            Volver a ver este mensaje la próxima vez.
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

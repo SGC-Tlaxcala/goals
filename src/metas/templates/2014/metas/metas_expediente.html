@@ -1,0 +1,54 @@
+{% extends "2014/base.html" %}
+
+{% block contextual %}
+  <a class="btn btn-large btn-danger" type="button" href="{% url "metas.views.evidencia_seleccionar" %}">
+    Agregar una Evidencia</a>
+  {% endblock %}
+
+{% block contenido %}
+<div class="row">
+
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="page-header">
+      <h1>Expediente de la Meta {{meta}} <small><a href="{% url 'metas.views.meta_editar' id=meta.id %}"><i class="fa fa-pencil"></i> Editar</a></h1>
+      
+      <div class="row">
+        <div class"col-sm-12">
+          <div class="btn-group">
+            <a class="btn btn-default" type="button" href="{% url 'metas' %}"  title="Regresar al inicio de Metas del SPE"><i class="icon-meter-fast icon"></i> Regresar</a>
+            {% if perms.metas.change_metasspe %}<a class="btn btn-primary" type="button" href="{% url 'meta_editar' id=meta.id %}"><i class="fa fa-pencil"></i> Editar</a>{% endif %}
+            {% if perms.metas.add_metasspe %}<a class="btn btn-warning" type="button" href="{% url 'meta_add' %}"><i class="fa fa-plus-square"></i> Agregar Meta</a>{% endif %}
+            
+          </div>
+        </div>
+      </div>
+      
+      <section id="identificacion">
+        <h4>Identificación de la Meta</h4>
+        <table class="table">
+          <tr>
+            <td><strong>Cargo o Puesto</strong></td>
+            <td>{{meta.puesto}}</td>
+          </tr>
+          <tr>
+            <td><strong>Clave</strong></td>
+            <td>{{meta.puesto}}-{{meta.clave}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nombre corto </strong></td>
+            <td>{{meta.nom_corto}}</td>
+          </tr>  
+        </table>
+      </section>
+      
+      <section id="descripcion">
+        <h4>Descripción</h4>
+        {{meta.descripcion|safe}}
+      </section>
+      
+    </div>
+  </div>
+
+</div>
+<div style="clear:both"></div>
+{% endblock %}

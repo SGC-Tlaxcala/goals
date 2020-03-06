@@ -1,0 +1,69 @@
+{# Template Lista de Avisos #}
+{% extends "2014/base.html" %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+
+{% block upper_header %}
+  {{ form.media }}
+{% endblock upper_header %}
+
+{% cycle 'fe781e' '9b59bb' '1570a6' '41bb19' '1da4e5' 'ff3738' as colores %}
+{% cycle 'fe781e' '9b59bb' '1570a6' '41bb19' '1da4e5' 'ff3738' as topes %}
+{% cycle 'fe781e' '9b59bb' '1570a6' '41bb19' '1da4e5' 'ff3738' as textos %}
+{% cycle 'fe781e' '9b59bb' '1570a6' '41bb19' '1da4e5' 'ff3738' as menu %}
+
+{% block hook_footer %}
+<script>
+  function metax(ajax_page, miembro) {
+    $(".button").hide();
+    $("#portfolio").hide();
+    $.ajax({
+      type: "GET",
+      url: ajax_page + miembro,
+      dataType: "html", 
+      success: 
+        function(macs){       
+          $("#formulario").html(macs);     
+        }
+    }); 
+  }
+</script>
+{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+  <h1><span class="icon-meter-fast"></span> {{title}}</h1>
+</div>
+
+<p>
+  <!-- Add filter names inside "data-filter". For example ".web-design", ".seo", etc., Filter names are used to filter the below images. -->
+  <div class="button">
+    <ul id="filters">
+      <li><a href="#" data-filter="*">Todas</a></li>
+      {% for o in miembros %}
+      <li><a style="background:#{% cycle menu %};" href="#" data-filter=".{{o.miembro|lower}}">{{o.miembro}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</p>
+  
+
+<div id="portfolio">
+  {% for meta in metas %}
+  <div class="element {{meta.miembro|lower}}" style="background:#{% cycle colores %}; overflow:hidden; height:200px;">
+    <a href="{% url 'metas.views.evidencia_ajax' meta.miembro|lower meta.clave%}">
+      <!-- Portfolio caption -->
+      <div class="pcap" style="background:#{% cycle textos %}; border-top: 2px solid #{% cycle topes %}; max-height:190px; overflow:hidden;">
+        <h4>{{meta}}</h4>
+        <p>
+          {{meta.descripcion|safe|truncatewords:"50"}}
+        </p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div><!-- #/portfolio --> 
+
+<div id="formulario"></div>
+
+{% endblock contenido %}

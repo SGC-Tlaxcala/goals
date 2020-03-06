@@ -1,0 +1,181 @@
+{% extends "2014/base.html" %}
+
+
+{% block container_before %}
+  <div class="bs-header" id="content">
+    <div class="container">
+      <h1 style='margin-right:0 !important;'>Sistema de Gestión de la Calidad</h1>
+      <p class="lead">
+        El SGC asegura que el servicio que ofrecemos cumple con los requisitos establecidos y
+        nos ayuda a obtener los resultados planificados.
+      </p>
+      <div class="btn-group">
+        <a href="{% url 'metas' %}" type="button" class="btn btn-default"><i class="icon-meter-fast icon"></i> Metas</a></a>
+        <a href="/docs/" type="button" class="btn btn-default"><i class="icon-archive icon"></i> Documentación</a></a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block container %}
+<div class="container" style="margin-top: 25px;">
+
+  <!-- Heading Row -->
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-responsive img-rounded" src="{{ STATIC_URL }}/img/portada.png" alt="">
+    </div>
+    <!-- /.col-md-8 -->
+    <div class="col-md-4">
+      <h2>Política de la Calidad</h2>
+       <p class="well text-justify">
+          <span style="border-bottom: 1px dotted #000;">Nuestro compromiso con la ciudadanía y las partes interesadas es garantizar el ejercicio de los derechos político-electorales y el derecho a la identidad a través de un servicio de calidad y mejora continua en el trámite y entrega de la Credencial para Votar; haciendo uso efectivo de los recursos asignados; observando las disposiciones normativas y los objetivos institucionales; siempre con estricto apego a los principios rectores de: Certeza, Legalidad, Independencia, Imparcialidad, Objetividad y Máxima Publicidad; dando cumplimiento a la Norma ISO 9001:2015.</span>
+        <small>
+          <span style="font-variant: small-caps;">
+            <strong>Revisión:</strong> 
+              05 (marzo 07, 2017)
+          </span>
+        </small> 
+      </p>
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
+  <!-- Call to Action Well -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="text-center">
+        <h1>Objetivos de la Calidad</h1>
+      </div>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Productividad</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Mantener una <strong>productividad</strong> semanal  en  los  Módulos  de  Atención  Ciudadana  en  mínimo  27 atenciones  en  promedio,  por  día  y  por  estación de  trabajo, en  al menos  el <span style="border-bottom: 1px dotted #000;">92%</span> de  las  remesas operativas del 2016, cuando la afluencia ciudadana es <span style="border-bottom: 1px dotted #000;">baja</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->
+    
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Trámites</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Cumplir  como  mínimo  con  el  100%  del  pronóstico establecido  para  el <span style="border-bottom: 1px dotted #000;">2016</span>, de  solicitudes  de credencial (<strong>trámites</strong>).
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->
+
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Rechazos y Faltantes</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Tener un máximo del 0.01% de <strong>rechazos y faltantes</strong> de la documentación electoral generada en los Módulos de atención Ciudadana que es enviada al CECYRD para su resguardo definitivo, en el <span style="border-bottom: 1px dotted #000;">2016</span>, considerando la información que se envió por primera vez en el periodo que se reporta.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <!-- /.row -->
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Metas</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Integrar  al 100%  las evidencias de las <strong>metas</strong> del Servicio Profesional Electoral del <span style="border-bottom: 1px dotted #000;">2016</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->
+
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Distribución</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Lograr como  mínimo  que  el  85%  de  los  FCPV  sean <strong>distribuidos</strong> en un  máximo  de 48 horas, considerando desde que llegan hasta que se ponen disponibles en los MAC, en el 2016.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->    
+
+
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Aprobación</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Obtener al menos el <span style="border-bottom: 1px dotted #000;"><strong>96%</strong></span> de <strong>aprobación</strong>, en el <span style="border-bottom: 1px dotted #000;">2016</span>, en las encuestas de percepción ciudadana sobre el <strong>servicio</strong> que se brinda en los Módulos de Atención Ciudadana.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 -->    
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class=" panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Felicitaciones</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Disminuir, en el <span style="border-bottom: 1px dotted #000;">2016</span>, al 1% de quejas, respecto a las <strong>felicitaciones</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-md-4 --> 
+  </div>
+
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; INE 2016</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<div class="container">
+  <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
+</div>
+<ul id="nav-mobile" class="side-nav fixed">
+  <li class="logo">
+    <a id="logo-container" href="javascript:void(0)" class="brand-logo">
+      <img src="{% static 'images/ine150.png' %}" alt="INE" title="INE">
+    </a>
+  </li>
+
+  <li class="bold no-padding"><a href="/" class="collapsible-header waves-effect waves-purple"><i class="fa fa-home"></i> Inicio</a></li>
+  <li class="bold no-padding"><a href="javascript:void(0)" class="collapsible-header waves-effect waves-purple"><i class="fa fa-flag-checkered"></i> Metas</a></li>
+  <li class="bold no-padding"><a href="javascript:void(0)" class="collapsible-header waves-effect waves-purple"><i class="fa fa-bug"></i> Planes de Acción</a></li>
+  <li class="bold no-padding"><a href="javascript:void(0)" class="collapsible-header waves-effect waves-purple"><i class="fa fa-book"></i> Documentación</a></li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li class="bold {% if mnIndicador %}active{% endif %}">
+        <a class="collapsible-header {% if mnIndicador %}active{% endif %} waves-effect waves-purple"><i class="fa fa-line-chart"></i> Indicadores</a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a href="javascript:void(0)"><i class="fa fa-area-chart"></i> Productividad</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-file-o"></i> Trámites</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-send-o"></i> Entregas</a></li>
+            <li {% if mnEncuesta %}class="active"{% endif %}><a href=""><i class="fa fa-thumbs-o-up {% if mnEncuesta %}active{% endif %}"></i> Aprobación Ciudadana</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-times-circle"></i> Rechazos</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-money"></i> Presupuesto</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-truck"></i> Distribución</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-clock-o"></i> Disponibilidad</a></li>
+            <li><a href="javascript:void(0)"><i class="fa fa-legal"></i> Quejas</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li class="bold no-padding"><a class="collapsible-header waves-effect waves-purple" href="javascript:void(0)"><i class="mdi-file-folder-shared"></i> Base capINE</a></li>
+  <li class="bold no-padding"><a class="collapsible-header waves-effect waves-purple" href="javascript:void(0)"><i class="mdi-maps-map"></i> Portal de Cartografía</a></li>
+  <li class="no-padding"><a class="collapsible-header waves-effect waves-purple" href="javascript:void(0)"><i class="mdi-action-info-outline"></i> Acerca del CMI</a></li>
+</ul>

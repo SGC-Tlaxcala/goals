@@ -1,0 +1,127 @@
+{# Template Lista de Avisos #}
+{% extends "2014/base.html" %}
+
+{% block container_before %}
+<div class="bs-header" id="content">
+  <div class="container">
+    <h1><span class="icon-meter-fast"></span> {{title}}</h1>
+    <p>
+      El control de usuarios para la gestión de las Metas del Servicio Profesional Electoral
+      requiere de permisos especiales.
+    </p>
+  </div>
+</div>
+{% include "2014/modulos/aviso2013.html" %}
+{% endblock %}
+
+
+
+{% block contenido %}
+<div class="col-md-12">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        Las cuentas del equipo técnico se crean en el <a class="alert-link" href="/admin/auth/user/">panel de control
+        <i class="icon-link"></i> </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group">
+        {% if perms.core.add_perfil %}
+          <a class="btn btn-primary" href="{% url 'usuarios_add' %}"><i class="icon-contact"></i> Agregar</a>
+        {% endif %}
+        <a class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class=" icon-help"></i> Ayuda</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lista de Usuarios</h3>
+      <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="col-sm-1">#</th>
+        <th class="col-sm-4">Nombre</th>
+        <th class="col-sm-3">Sitio</th>
+        <th class="col-sm-1">Puesto</th>
+        <th class="text-center col-sm-1">MSPE</th>
+        <th class="warning col-sm-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in pipol %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ p.first_name }} {{ p.last_name }}</td>
+          <td>{{ p.get_sitio }}</td>
+          <td>{{ p.puesto }}</td>
+          <td class="text-center">
+            {% if p.is_mspe %}<i class="icon-checkbox"></i>
+            {% else %}<i class="icon-cancel-3" rel="tooltip" title="Key active" id="blah"></i>{% endif %}
+          </td>
+          <td class="warning">
+            <!-- Single button -->
+            <div class="btn-group center-block">
+              <button type="button" class="btn btn-default btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-wrench"></i> Herramientas <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">Usuarios</li>
+                <li><a href="{% url "usuarios_edit" pipol=p.id %}"><i class="icon-pencil-2"></i> Editar</a></li>
+                <li><a href="#"><i class="icon-cancel"></i> Borrar</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Evidencias</li>
+                <li><a href="#"><i class="icon-upload-3"></i> Agregar</a></li>
+                <li><a href="#"><i class="icon-info"></i> Revisar</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class=" icon-help-2"></i> Ayuda para Agregar Usuarios</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Solo las personas en el grupo <kbd>sgc_metas</kbd> pueden crear usuarios que tengan acceso a las metas.<br>
+          Cuando se agrega un usuario usando esta aplicación se crean un <em>perfil</em> para cada uno de ellos, por
+          lo que se deben de indicar la siguiente información.
+        </p>
+        <ul>
+          <li><strong>sitio:</strong> se selecciona del menú, la junta a la que pertenece el usuario</li>
+          <li>
+            <strong>puesto:</strong> selecciona un puesto en el menú. Solo están especificados los puestos del SPE.
+            Para todos los demás existe <em>Rama Administrativa</em>.
+          </li>
+          <li>
+            <strong>activo:</strong> para evitar borrar usuarios, simplemente desmarca la opción <em>activo</em>.
+            Solo el personal del grupo <kbd>sgc_metas</kbd> puede ver los usuarios inactivos.
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+
+{% endblock contenido %}
