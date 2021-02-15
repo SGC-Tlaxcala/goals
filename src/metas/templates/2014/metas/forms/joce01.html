@@ -4,9 +4,9 @@
 {% block formulario %}
 
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_cronograma">Oficio de la DCE con cronograma</label>
+      <label class="col-sm-2 control-label" for="id_calendariio">Oficio de la DCE con el calendario</label>
       <div class="col-sm-8">
-        {{ form.cronograma }}
+        {{ form.calendariio }}
         <p class="help-block">
           Seleccione el archivo para esta evidencia, 
           <em>preferentemente <strong>en formato PDF</strong></em>
@@ -15,9 +15,9 @@
     </div>
     
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_bgd">Base Geográfica Digital</label>
+      <label class="col-sm-2 control-label" for="id_oficio">Oficio de envío</label>
       <div class="col-sm-8">
-        {{ form.bgd }}
+        {{ form.oficio }}
         <p class="help-block">
           Seleccione el archivo para esta evidencia, 
           <em>preferentemente <strong>en formato PDF</strong></em>
@@ -26,42 +26,9 @@
     </div>
     
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_mza_x_loc">Reporte de cobertura de manzana x localidad</label>
+      <label class="col-sm-2 control-label" for="id_respuesta">Oficio respuesta de la DCE</label>
       <div class="col-sm-8">
-        {{ form.mza_x_loc }}
-        <p class="help-block">
-          Seleccione el archivo para esta evidencia, 
-          <em>preferentemente <strong>en formato PDF</strong></em>
-        </p>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_mza_x_col">Reporte de cobertura de manzana x colonia</label>
-      <div class="col-sm-8">
-        {{ form.mza_x_col }}
-        <p class="help-block">
-          Seleccione el archivo para esta evidencia, 
-          <em>preferentemente <strong>en formato PDF</strong></em>
-        </p>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_errores_geometria">Reportes de error de Geometría</label>
-      <div class="col-sm-8">
-        {{ form.errores_geometria }}
-        <p class="help-block">
-          Seleccione el archivo para esta evidencia, 
-          <em>preferentemente <strong>en formato PDF</strong></em>
-        </p>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="id_libreracion">Correo de liberación</label>
-      <div class="col-sm-8">
-        {{ form.libreracion }}
+        {{ form.respuesta }}
         <p class="help-block">
           Seleccione el archivo para esta evidencia, 
           <em>preferentemente <strong>en formato PDF</strong></em>

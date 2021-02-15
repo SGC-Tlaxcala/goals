@@ -18,6 +18,8 @@ core.json
 docs.json
 remesa.json
 static/
+src/metas/mspe/*
+src/metas/templates/2014/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
