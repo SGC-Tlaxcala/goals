@@ -49,9 +49,9 @@ def atributo(calif):
 def campos(evidencia):
     e = evidencia
     m = evidencia.meta
-    modelo = m.modelo()
+    modelo = m.get_clave().lower()
     champs=[]
-    fields = eval('[uno.name for uno, dos in evidencia.%s._meta.get_fields_with_model() if (dos is None)]' % modelo )
+    fields = eval('[uno.name for uno, dos in evidencia.%s._meta.get_fields_with_model() if (dos is None)]' % modelo.lower() )
     for f in fields[1:]:
         champs.append((f, eval('evidencia.%s.%s' % (modelo, f))))
     return champs

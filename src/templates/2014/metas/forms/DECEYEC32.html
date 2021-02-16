@@ -1,0 +1,84 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_plan">
+    Plan de trabajo
+  </label>
+  <div class="col-sm-8">
+    {{ form.plan }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_reporte">
+    Reporte de seguimiento
+  </label>
+  <div class="col-sm-8">
+    {{ form.reporte }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_informe">
+    Informe de implementación
+  </label>
+  <div class="col-sm-8">
+    {{ form.informe }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_contingencia">
+    Plan de contingencia
+  </label>
+  <div class="col-sm-8">
+    {{ form.contingencia }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_reporte1">
+    Reporte de avance en la capacitación
+  </label>
+  <div class="col-sm-8">
+    {{ form.reporte1 }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_reporte2">
+    Reporte de avance en la capacitación
+  </label>
+  <div class="col-sm-8">
+    {{ form.reporte2 }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+{% endblock formulario %}

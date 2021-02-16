@@ -1,0 +1,97 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_informe">
+    Informe de actividades
+  </label>
+  <div class="col-sm-8">
+    {{ form.informe }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_anexos">
+    Anexos de atención sanitaria
+  </label>
+  <div class="col-sm-8">
+    {{ form.anexos }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_minuta">
+    Minuta de reunión
+  </label>
+  <div class="col-sm-8">
+    {{ form.minuta }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_oficio">
+    Oficio de entrega
+  </label>
+  <div class="col-sm-8">
+    {{ form.oficio }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_correo">
+    Correo de entrega
+  </label>
+  <div class="col-sm-8">
+    {{ form.correo }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_acuse">
+    Acuses de recibo de entrega
+  </label>
+  <div class="col-sm-8">
+    {{ form.acuse }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_guia">
+    Guías de control de calidad
+  </label>
+  <div class="col-sm-8">
+    {{ form.guia }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+{% endblock formulario %}

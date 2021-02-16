@@ -17,7 +17,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['10.69.0.68', ]
+# ALLOWED_HOSTS = ['10.69.0.68', ]
 
 import django.conf.global_settings as DEFAULT_SETTINGS
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
@@ -62,7 +62,7 @@ DATABASES = {
         'USER': 'javier',
         'PASSWORD': 'santo97',
         'HOST': 'localhost',
-        'PORT': '5433'
+        'PORT': '5432'
     }
 }
 

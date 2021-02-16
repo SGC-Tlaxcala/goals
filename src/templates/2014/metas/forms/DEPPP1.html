@@ -1,0 +1,58 @@
+﻿{% extends "2014/metas/forms/evidencia.html" %}
+{% load sgc %}
+
+{% block formulario %}
+
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_reporte">
+    Reporte de notificaciones
+  </label>
+  <div class="col-sm-8">
+    {{ form.reporte }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_incidentes">
+    Incidentes detectados
+  </label>
+  <div class="col-sm-8">
+    {{ form.incidentes }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_correos">
+    Correos electrónicos
+  </label>
+  <div class="col-sm-8">
+    {{ form.correos }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_procedimientos">
+    Procedimientos y formatos
+  </label>
+  <div class="col-sm-8">
+    {{ form.procedimientos }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+{% endblock formulario %}
