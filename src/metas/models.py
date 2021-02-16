@@ -22,7 +22,7 @@ def subir_archivo(instancia, archivo):
     ext = archivo.split('.')[-1]
     orig = 'metas'
     miembro = instancia.miembro.puesto.lower()
-    clave = instancia.meta.get_clave()
+    clave = instancia.meta.clave
     sitio = slugify(instancia.miembro.get_sitio())
     fecha = instancia.fecha.strftime('%y%m%d')
     meta = "%s-%s" % (miembro, clave)
