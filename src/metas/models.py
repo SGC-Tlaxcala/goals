@@ -61,13 +61,13 @@ class MetasSPE(models.Model):
     actualiza = models.DateTimeField (auto_now = True)
 
     def __unicode__(self):
-        return '%s-%s' % (self.puesto, self.clave)
+        return self.clave
 
     def modelo(self):
         return u'%s%s' % (self.puesto.lower(), self.clave)
         
-    def clave(self):
-      return self.clave
+    def get_clave(self):
+        return self.clave
 
     def progreso(self, miembro):
         return  (self.evidenciaFK_meta.filter(miembro=miembro).count()*1. / self.ciclos)*100.
