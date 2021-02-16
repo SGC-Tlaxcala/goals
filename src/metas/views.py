@@ -156,8 +156,8 @@ from .mspe import *
 @login_required
 def add(request, meta):
     meta = MetasSPE.objects.get(pk=meta)
-    plantilla = '2014/metas/forms/%s.html' % meta.modelo()
-    formulario = 'Formulario%s' % meta.modelo().upper()
+    plantilla = '2014/metas/forms/%s.html' % meta.clave()
+    formulario = 'Formulario%s' % meta.clave()
     if request.method == 'POST':
         form = eval(formulario)(request.POST, request.FILES, qmeta=meta)
         if form.is_valid():
@@ -189,8 +189,8 @@ def evidencia_editar(request, id):
     evidencia = eval ('Evidencia.objects.get(pk=%s)' % (id))
     instancia = eval('evidencia.%s' % evidencia.meta.modelo() )
     meta = instancia.meta
-    plantilla = '2014/metas/forms/%s.html' % meta.modelo()
-    formulario = 'Formulario%s' % meta.modelo().upper()
+    plantilla = '2014/metas/forms/%s.html' % meta.clave()
+    formulario = 'Formulario%s' % meta.clave()
     if request.method == 'POST':
         form = eval(formulario)(request.POST, request.FILES, qmeta=meta, instance=instancia)
         if form.is_valid():
