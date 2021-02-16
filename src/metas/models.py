@@ -67,7 +67,7 @@ class MetasSPE(models.Model):
         return u'%s%s' % (self.puesto.lower(), self.clave)
         
     def get_clave(self):
-        return self.clave
+        return self.clave.lower()
 
     def progreso(self, miembro):
         return  (self.evidenciaFK_meta.filter(miembro=miembro).count()*1. / self.ciclos)*100.
