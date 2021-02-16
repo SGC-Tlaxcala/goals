@@ -48,7 +48,7 @@ PUESTOS = (
     (VOD, 'Vocal de Organización de Junta Distrital'),
     (JOSA, 'JOSA'),
     (JOSAD, 'JOSAD'),
-    (JMM, 'Jefe de Monitoreo a Módulos'),
+    (COB, 'Coordinador Operativo B'),
     (JOCE, 'Jefe de Cartografía'),
     (RA, 'Rama Administrativa'),
     (MC, 'Meta Colectiva')
