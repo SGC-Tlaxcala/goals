@@ -236,7 +236,7 @@ class FormularioMetas(forms.ModelForm):
         ),
     )
     nom_corto = forms.CharField(
-        max_length=20,
+        max_length=100,
         label = 'Identificación',
         help_text = 'Escribe un nombre descriptivo corto para la meta',
         widget=forms.TextInput(
