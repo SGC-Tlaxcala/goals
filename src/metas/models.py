@@ -1,7 +1,9 @@
 #-*- coding: utf-8 -*-
 #       app: cmi.metas
-#      desc: Clases para la administracion
+#      desc: Clases para la administración
 __author__ = 'javier'
+
+import os.path
 
 from django.conf import settings
 from django.db import models
@@ -15,9 +17,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-# Funcion para subir archivos
+# Función para subir archivos
 def subir_archivo(instancia, archivo):
-    import os.path
     ext = archivo.split('.')[-1]
     orig = 'metas'
     miembro = instancia.miembro.puesto.lower()
@@ -31,7 +32,6 @@ def subir_archivo(instancia, archivo):
 
 ### Función para subir soporte
 def archivo_soporte(instancia, archivo):
-    import os.path
     ext = archivo.split('.')[-1]
     orig = 'metas'
     modelo = instancia.modelo()
@@ -44,19 +44,18 @@ def archivo_soporte(instancia, archivo):
 class MetasSPE(models.Model):
     # Identificador de la meta
     puesto = models.CharField("Cargo", max_length=6, choices=PUESTOS)
-    clave = models.CharField("Clave de la Meta", max_length=2)
-    nom_corto = models.CharField('Identificación', max_length=25)
+    clave = models.CharField("Clave de la Meta", max_length=8)
+    nom_corto = models.CharField('Identificación', max_length=50)
     year = models.PositiveIntegerField("Año")
-    eval = models.BooleanField('Evaluación', default=True)
 
     # Seguimiento y Medición
     ciclos = models.PositiveSmallIntegerField('Repeticiones')
 
-    # Descripcion de la Meta
+    # Descripción de la Meta
     descripcion = models.TextField('Descripción de la Meta')
     soporte = models.FileField('Soporte', upload_to = archivo_soporte, blank=True, null=True)
 
-    # Datos de identificacion y seguimiento
+    # Datos de identificación y seguimiento
     usuario = models.ForeignKey(User, related_name='meta_user', editable=False)
     creacion = models.DateTimeField(auto_now_add=True)
     actualiza = models.DateTimeField (auto_now = True)
@@ -77,14 +76,10 @@ class MetasSPE(models.Model):
 
 
 class Evidencia(models.Model):
-    # Identificacion de la Meta
+    # Identificación de la Meta
     meta = models.ForeignKey(MetasSPE, related_name="evidenciaFK_meta")
     miembro = models.ForeignKey(User, verbose_name='Miembro del SPE', related_name='evidenciaFK_pipol')
     fecha = models.DateField()
-
-    # Calificaciones
-    eval_calidad = models.PositiveSmallIntegerField('Evaluación del Criterio de Calidad', blank=True, null=True)
-    eval_oportunidad = models.PositiveSmallIntegerField('Evaluación del Criterio de Oportunidad', blank=True, null=True)
 
     # Datos de trazabilidad
     usuario = models.ForeignKey(User, related_name='evidenciaFK_usuario', editable=False)
@@ -102,14 +97,14 @@ class Evidencia(models.Model):
         return "%s - %s - %s" % (self.meta, self.miembro.get_sitio(), self.fecha)
 
     def save(self):
-        if(not self.content_type):
+        if not self.content_type:
             self.content_type = ContentType.objects.get_for_model(self.__class__)
         self.save_base()
 
     def as_leaf_class(self):
         content_type = self.content_type
         model = content_type.model_class()
-        if(model == Base):
+        if model == Base:
             return self
         return model.objects.get(id=self.id)
 
@@ -123,4 +118,3 @@ class Evidencia(models.Model):
 ##############################################################################
 
 from .mspe import all
-

@@ -290,14 +290,6 @@ class FormularioMetas(forms.ModelForm):
 
 
 class FormEvidenciaBase(forms.ModelForm):
-    BAJO = 1
-    MEDIO = 2
-    ALTO = 3
-    CALIFICACION = (
-        (BAJO, 'Nivel Bajo',),
-        (MEDIO, 'Nivel Medio',),
-        (ALTO, 'Nivel Alto',)
-    )
     def __init__(self, *args, **kwargs):
         m = kwargs.pop('qmeta', None)
         # p = kwargs.pop('qpipol', None)
@@ -316,15 +308,3 @@ class FormEvidenciaBase(forms.ModelForm):
         )
     )
     eval = forms.BooleanField(initial=True, required=False)
-    eval_calidad = forms.ChoiceField(choices=CALIFICACION,
-        initial=3,
-        widget=forms.RadioSelect(
-            renderer=HorizontalRadioRenderer
-        ),
-    )
-    eval_oportunidad = forms.ChoiceField(choices=CALIFICACION,
-        initial=3,
-        widget=forms.RadioSelect(
-            renderer=HorizontalRadioRenderer
-        ),
-    )

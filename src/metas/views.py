@@ -25,7 +25,9 @@ def metas_index(request):
     mspe = ~Q(puesto='RA')
     metas2 = MetasSPE.objects.all().order_by('puesto')
     data = {'title': 'Metas del SPE', 'mnMetas': True, 'metas2': metas2}
-    pipol = Pipol.objects.filter(mspe).values('id', 'username', 'first_name', 'last_name', 'puesto').order_by('orden')
+    pipol = Pipol.objects.filter(mspe)\
+            .values('id', 'username', 'first_name', 'last_name', 'puesto')\
+            .order_by('orden')
     metas = MetasSPE.objects\
         .values('id', 'puesto', 'clave',  'nom_corto', 'ciclos', 'descripcion', 'soporte')\
         .order_by('clave')
@@ -190,7 +192,6 @@ def evidencia_editar(request, id):
     plantilla = '2014/metas/forms/%s.html' % meta.modelo()
     formulario = 'Formulario%s' % meta.modelo().upper()
     if request.method == 'POST':
-        # form = eval('Formulario%s' % instancia.meta.modelo().upper())(request.POST, request.FILES, instance=instancia, qmeta=instancia.meta)
         form = eval(formulario)(request.POST, request.FILES, qmeta=meta, instance=instancia)
         if form.is_valid():
             form.save()
