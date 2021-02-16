@@ -250,7 +250,7 @@ class FormularioMetas(forms.ModelForm):
         max_length=20,
         label = 'Año',
         help_text = 'Año en el que aplica la meta',
-        initial = 2015,
+        initial = 2021,
         widget=forms.TextInput(
             attrs={
                 'class':'form-control',
