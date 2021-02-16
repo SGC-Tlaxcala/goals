@@ -45,7 +45,7 @@ class MetasSPE(models.Model):
     # Identificador de la meta
     puesto = models.CharField("Cargo", max_length=6, choices=PUESTOS)
     clave = models.CharField("Clave de la Meta", max_length=8)
-    nom_corto = models.CharField('Identificación', max_length=50)
+    nom_corto = models.CharField('Identificación', max_length=100)
     year = models.PositiveIntegerField("Año")
 
     # Seguimiento y Medición
