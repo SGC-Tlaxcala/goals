@@ -156,7 +156,7 @@ from .mspe import *
 @login_required
 def add(request, meta):
     meta = MetasSPE.objects.get(pk=meta)
-    plantilla = '2014/metas/forms/%s.html' % meta.get_clave()
+    plantilla = '2014/metas/forms/%s.html' % meta.get_clave().lower()
     formulario = 'Formulario%s' % meta.get_clave()
     if request.method == 'POST':
         form = eval(formulario)(request.POST, request.FILES, qmeta=meta)
