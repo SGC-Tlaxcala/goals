@@ -187,7 +187,7 @@ def add(request, meta):
 @login_required
 def evidencia_editar(request, id):
     evidencia = eval ('Evidencia.objects.get(pk=%s)' % (id))
-    instancia = eval('evidencia.%s' % evidencia.meta.modelo() )
+    instancia = eval('evidencia.%s' % evidencia.meta.modelo().lower())
     meta = instancia.meta
     plantilla = '2014/metas/forms/%s.html' % meta.get_clave()
     formulario = 'Formulario%s' % meta.get_clave()
