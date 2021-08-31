@@ -190,6 +190,7 @@ class FormularioDEOE75(FormEvidenciaBase):
 class DERFE112(Evidencia):
     correo = models.FileField('Correo electrónico', upload_to=subir_archivo, )
     oficio = models.FileField('Oficio o correo de envío', upload_to=subir_archivo, )
+    reporte = models.FileField('Reporte de trámites', upload_to=subir_archivo,)
     vobo = models.FileField('Vo. Bo. del jefe inmediato superior', upload_to=subir_archivo, )
 
     class Meta:
@@ -224,4 +225,16 @@ class DERFE2(Evidencia):
 class FormularioDERFE2(FormEvidenciaBase):
     class Meta:
         model = DERFE2
+
+class DERFE3(Evidencia):
+    reporte = models.FileField('Reporte de supervisión', upload_to=subir_archivo, )
+    cumplimiento = models.FileField('Verificación de cumplimiento', upload_to=subir_archivo, )
+    conformacion = models.FileField('Verificación de conformación', upload_to=subir_archivo, )
+
+    class Meta:
+        app_label = 'metas'
+        
+class FormularioDERFE3(FormEvidenciaBase):
+    class Meta:
+        model = DERFE3
 

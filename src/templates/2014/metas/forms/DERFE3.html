@@ -4,34 +4,8 @@
 {% block formulario %}
 
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="id_correo">
-    Correo electrónico
-  </label>
-  <div class="col-sm-8">
-    {{ form.correo }}
-    <p class="help-block">
-      Seleccione el archivo para esta evidencia,
-      <em>preferentemente <strong>en formato PDF</strong></em>
-    </p>
-  </div>
-</div>
-    
-<div class="form-group">
-  <label class="col-sm-2 control-label" for="id_oficio">
-    Oficio o correo de envío
-  </label>
-  <div class="col-sm-8">
-    {{ form.oficio }}
-    <p class="help-block">
-      Seleccione el archivo para esta evidencia,
-      <em>preferentemente <strong>en formato PDF</strong></em>
-    </p>
-  </div>
-</div>
-
-<div class="form-group">
   <label class="col-sm-2 control-label" for="id_reporte">
-    Reporte de trámites
+    Reporte de supervisión
   </label>
   <div class="col-sm-8">
     {{ form.reporte }}
@@ -43,11 +17,24 @@
 </div>
     
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="id_vobo">
-    Vo. Bo. del jefe inmediato superior
+  <label class="col-sm-2 control-label" for="id_cumplimiento">
+    Verificación de cumplimiento
   </label>
   <div class="col-sm-8">
-    {{ form.vobo }}
+    {{ form.cumplimiento }}
+    <p class="help-block">
+      Seleccione el archivo para esta evidencia,
+      <em>preferentemente <strong>en formato PDF</strong></em>
+    </p>
+  </div>
+</div>
+    
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="id_conformacion">
+    Verificación de conformación
+  </label>
+  <div class="col-sm-8">
+    {{ form.conformacion }}
     <p class="help-block">
       Seleccione el archivo para esta evidencia,
       <em>preferentemente <strong>en formato PDF</strong></em>
