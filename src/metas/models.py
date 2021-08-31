@@ -64,7 +64,7 @@ class MetasSPE(models.Model):
         return self.clave
 
     def modelo(self):
-        return u'%s%s' % (self.clave)
+        return u'%s' % (self.clave)
         
     def get_clave(self):
         return self.clave
