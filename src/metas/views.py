@@ -36,7 +36,7 @@ def metas_index(request):
         p['metas'] = OrderedDict()
         for m in metas:
             if p['puesto'] == m['puesto']:
-                meta = '%s%s' % (m['puesto'], m['clave'])
+                meta = '%s' % (m['clave'])
                 evidencia = Evidencia.objects.filter(miembro__id=p['id'], meta__id=m['id']).order_by('fecha')
                 progreso = (evidencia.count() * 1.0) / (m['ciclos'] * 1.0) * 100
                 p['metas'][meta] = {
