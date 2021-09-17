@@ -124,7 +124,7 @@ function abrir(pagina) {
                     <p>
                       {% if perms.metas.change_metasspe %}<a class="btn btn-primary btn-lg" href="{% url 'meta_editar' id=m.id %}" title="Editar"><i class="fa fa-pencil"></i> Editar Meta</a>{% endif %}
 
-                      {% if request.user|fmeta:k %}<a class="btn btn-danger btn-lg" href="/metas/add/{{ m.id }}/" title="Subir Evidencia"><i class="fa fa-upload"></i> Subir Evidencia</a>{% endif %}<i>Meta: </i> {{k}}
+                      {% if request.user|fmeta:k %}<a class="btn btn-danger btn-lg" href="/metas/add/{{ m.id }}/" title="Subir Evidencia"><i class="fa fa-upload"></i> Subir Evidencia</a>{% endif %}<i>Meta: </i>
 
                       {% if m.soporte %}<a class="btn btn-info btn-lg" href="/media/{{ m.soporte }}" target="_blank" title="Soporte para la meta"><i class="fa fa-life-ring"></i> Soporte</a>{% endif %}
                     </p>                    
@@ -134,8 +134,6 @@ function abrir(pagina) {
                     <thead>
                       <th>#</th>
                       <th>Fecha</th>
-                      <th>Calidad</th>
-                      <th>Oportunidad</th>
                       <th>Tareas</th>
                     </thead>
                     <tbody>
@@ -143,8 +141,6 @@ function abrir(pagina) {
                       <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ e.fecha}}</td>
-                        <td>{{ e.eval_calidad|stars|safe }}</td>
-                        <td>{{ e.eval_oportunidad|stars|safe }}</td>
                         <td>
                           <div class="btn-toolbar" style="margin: 0;" role="toolbar">
                             <div class="btn-group">
